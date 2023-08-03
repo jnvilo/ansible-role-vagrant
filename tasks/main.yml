@@ -1,0 +1,28 @@
+
+# check if vagrant is installed
+- name: Check if vagrant is installed
+  stat:
+    path: /usr/bin/vagrant
+  register: vagrant_installed
+  tags:
+    - vagrant
+
+# Install packages required for vagrant
+- name: Install packages required for vagrant
+  apt: 
+    name: ["libxslt-dev", "libxml2-dev", "libvirt-dev", "zlib1g-dev", "ruby-dev", "ruby-libvirt",  "ebtables", "dnsmasq-base"]
+    state: present
+  when: vagrant_installed.stat.exists == false
+  tags:
+    - vagrant
+
+- name: Install vagrant-libvirt plugin when vagrant was not installed 
+  shell: vagrant plugin install vagrant-libvirt
+  when: vagrant_installed.stat.exists == false
+  tags:
+    - vagrant
+- name: Install vagrant-mutate plugin when vagrant was not installed 
+  shell: vagrant plugin install vagrant-mutate
+  when: vagrant_installed.stat.exists == false
+  tags:
+    - vagrant
