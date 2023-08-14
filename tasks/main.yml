@@ -10,7 +10,7 @@
 # Install packages required for vagrant
 - name: Install packages required for vagrant
   apt: 
-    name: ["libxslt-dev", "libxml2-dev", "libvirt-dev", "zlib1g-dev", "ruby-dev", "ruby-libvirt",  "ebtables", "dnsmasq-base"]
+    name: ["vagrant", "libxslt-dev", "libxml2-dev", "libvirt-dev", "zlib1g-dev", "ruby-dev", "ruby-libvirt",  "ebtables", "dnsmasq-base"]
     state: present
   when: vagrant_installed.stat.exists == false
   tags:
